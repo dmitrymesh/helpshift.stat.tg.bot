@@ -3,11 +3,11 @@ import requests
 
 
 class HelpshiftAPI:
-    def __init__(self, api_url, api_key):
-        self.api_url = api_url
+    def __init__(self, config):
+        self.api_url = config['helpshift_api_url']
         self.headers = {
             'Accept': 'application/json',
-            'Authorization': f'Basic {api_key}'
+            'Authorization': f'Basic {config["helpshift_api_key"]}'
         }
 
     def send_request(self, creation_since, creation_until, app_name=None, app_id=None):
@@ -35,4 +35,5 @@ class HelpshiftAPI:
             response.raise_for_status()
             return response.json().get('total-hits', 0), "Success"
         except requests.exceptions.RequestException as err:
-            return None, f"Error: {err}"
+            print(f"Helpshift API Error: {err}")
+            return 0, f"Error: {err}"
