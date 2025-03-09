@@ -22,9 +22,5 @@
 
     "tracked_app_ids": {
         "your_app_id_here": 40
-    },
-
-    "log_stdout_path": "/var/log/bot_daemon.log",
-    "log_stderr_path": "/var/log/bot_daemon_error.log",
-    "pidfile_path": "/var/run/bot_daemon.pid"
+    }
 }
