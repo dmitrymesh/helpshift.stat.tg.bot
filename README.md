@@ -10,6 +10,38 @@ Helpshift Tickets Statistic Bot collects the number of tickets received in your 
 
 ## Installation
 
+### Steps to Install
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/dmitrymesh/helpshift.stat.tg.bot.git
+   cd helpshift.stat.tg.bot
+   ```
+2. **Install dependencies:**
+   ```sh
+   pip3 install -r requirements.txt
+   ```
+3. **Create a systemd service file:**
+   ```sh
+   sudo nano /etc/systemd/system/helpshift-bot.service
+   ```
+4. **Add the following configuration (do not forget to replace `/Your/HelpshiftBot/Directory` with the actual path to your bot's directory):**
+   ```ini
+   [Unit]
+   Description=Helpshift Bot Service
+   After=network.target
+
+   [Service]
+   ExecStart=/bin/bash -c 'cd /Your/HelpshiftBot/Directory && pip3 install -r requirements.txt --quiet && python3 bot_daemon.py'
+   WorkingDirectory=/Your/HelpshiftBot/Directory
+   Restart=always
+   User=root
+   StandardOutput=append:/var/log/helpshift-bot.log
+   StandardError=append:/var/log/helpshift-bot-error.log
+
+   [Install]
+   WantedBy=multi-user.target
+   ```
+
 ### Configuration Setup
 Before running the bot, configure it by editing the `config.json` file. The configuration should include:
 
@@ -43,38 +75,6 @@ Before running the bot, configure it by editing the `config.json` file. The conf
 ```
 
 Ensure you replace placeholders with actual values for your Helpshift, Telegram, and Mattermost accounts.
-
-#### Steps to Install
-1. **Clone the repository:**
-   ```sh
-   git clone https://github.com/dmitrymesh/helpshift.stat.tg.bot.git
-   cd helpshift.stat.tg.bot
-   ```
-2. **Install dependencies:**
-   ```sh
-   pip3 install -r requirements.txt
-   ```
-3. **Create a systemd service file:**
-   ```sh
-   sudo nano /etc/systemd/system/helpshift-bot.service
-   ```
-4. **Add the following configuration (do not forget to replace `/Your/HelpshiftBot/Directory` with the actual path to your bot's directory):**
-   ```ini
-   [Unit]
-   Description=Helpshift Bot Service
-   After=network.target
-
-   [Service]
-   ExecStart=/bin/bash -c 'cd /Your/HelpshiftBot/Directory && pip3 install -r requirements.txt --quiet && python3 bot_daemon.py'
-   WorkingDirectory=/Your/HelpshiftBot/Directory
-   Restart=always
-   User=root
-   StandardOutput=append:/var/log/helpshift-bot.log
-   StandardError=append:/var/log/helpshift-bot-error.log
-
-   [Install]
-   WantedBy=multi-user.target
-   ```
 
 ### Running, Stopping, and Restarting the Bot
 
