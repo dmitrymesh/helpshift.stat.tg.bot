@@ -11,27 +11,37 @@ Helpshift Tickets Statistic Bot collects the number of tickets received in your 
 ## Installation
 
 ### Steps to Install
+
 1. **Clone the repository:**
    ```sh
    git clone https://github.com/dmitrymesh/helpshift.stat.tg.bot.git
    cd helpshift.stat.tg.bot
    ```
-2. **Install dependencies:**
+
+2. **Create and activate a virtual environment:**
    ```sh
-   pip3 install -r requirements.txt
+   python3 -m venv venv
+   source venv/bin/activate
    ```
-3. **Create a systemd service file:**
+
+3. **Install dependencies:**
+   ```sh
+   pip install -r requirements.txt 
+   ```
+
+4. **Create a systemd service file:**
    ```sh
    sudo nano /etc/systemd/system/helpshift-bot.service
    ```
-4. **Add the following configuration (do not forget to replace `/Your/HelpshiftBot/Directory` with the actual path to your bot's directory):**
+
+5. **Add the following configuration (do not forget to replace `/Your/HelpshiftBot/Directory` with the actual path to your bot's directory):**
    ```ini
    [Unit]
    Description=Helpshift Bot Service
    After=network.target
 
    [Service]
-   ExecStart=/bin/bash -c 'cd /Your/HelpshiftBot/Directory && pip3 install -r requirements.txt --quiet && python3 bot_daemon.py'
+   ExecStart=/bin/bash -c 'cd /Your/HelpshiftBot/Directory && /Your/HelpshiftBot/Directory/venv/bin/pip install -r requirements.txt --quiet && /Your/HelpshiftBot/Directory/venv/bin/python bot_daemon.py' 
    WorkingDirectory=/Your/HelpshiftBot/Directory
    Restart=always
    User=root
